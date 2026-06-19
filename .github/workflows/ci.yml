@@ -42,9 +42,11 @@ jobs:
           xcode-version: latest-stable
 
       - name: Inject placeholder Secrets.xcconfig (CI build only)
+        # The MovieBrowser target's baseConfigurationReference points at
+        # Apps/MovieBrowser/Secrets.xcconfig (gitignored), so CI must create it
+        # there for the build to resolve $(TMDB_BEARER_TOKEN).
         run: |
-          mkdir -p Apps/MovieBrowser/Config
-          echo "TMDB_BEARER_TOKEN = ci_placeholder_token" > Apps/MovieBrowser/Config/Secrets.xcconfig
+          echo "TMDB_BEARER_TOKEN = ci_placeholder_token" > Apps/MovieBrowser/Secrets.xcconfig
 
       - name: Build MovieBrowser (Simulator)
         # 'generic/platform=iOS Simulator' builds without resolving a specific
