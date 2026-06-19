@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-packages:
+    name: Test packages
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode (Swift 6 toolchain)
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Test NetworkKit
+        run: swift test --package-path Packages/NetworkKit
+
+      - name: Test MovieBrowserCore
+        run: swift test --package-path Packages/MovieBrowserCore
+
+  build-app:
+    name: Build MovieBrowser
+    runs-on: macos-latest
+    needs: test-packages
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode (Swift 6 toolchain)
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Inject placeholder Secrets.xcconfig (CI build only)
+        run: |
+          mkdir -p Apps/MovieBrowser/Config
+          echo "TMDB_BEARER_TOKEN = ci_placeholder_token" > Apps/MovieBrowser/Config/Secrets.xcconfig
+
+      - name: Build MovieBrowser (Simulator)
+        # 'generic/platform=iOS Simulator' builds without resolving a specific
+        # device, so it can't break when the runner's Xcode drops an older
+        # device profile (e.g. a hardcoded "iPhone 15").
+        run: |
+          xcodebuild build \
+            -workspace AgenticCodingPortfolio.xcworkspace \
+            -scheme MovieBrowser \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            -quiet

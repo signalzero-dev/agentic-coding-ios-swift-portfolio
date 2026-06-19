@@ -1,0 +1,15 @@
+# Build artifacts
+.build/
+DerivedData/
+**/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Secrets — NEVER commit
+*.xcconfig.local
+Secrets.xcconfig
+GoogleService-Info.plist
+.env
