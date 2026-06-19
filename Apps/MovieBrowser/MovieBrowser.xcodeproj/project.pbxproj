@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		34B0985A2FE3BF0C00360BDC /* MovieBrowserCore in Frameworks */ = {isa = PBXBuildFile; productRef = 34B098592FE3BF0C00360BDC /* MovieBrowserCore */; };
-		34B0985D2FE3CF1500360BDC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 34B0985C2FE3CF1400360BDC /* Secrets.xcconfig */; };
 		34B098622FE3D47500360BDC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 34B098612FE3D47500360BDC /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +32,7 @@
 		34B097EE2FE3870200360BDC /* MovieBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B097FB2FE3870500360BDC /* MovieBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B098052FE3870500360BDC /* MovieBrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieBrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		34B0985C2FE3CF1400360BDC /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		34B0985C2FE3CF1400360BDC /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -249,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34B0985D2FE3CF1500360BDC /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

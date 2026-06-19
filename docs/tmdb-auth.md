@@ -51,6 +51,10 @@ force-unwrap**.
 ## Rules
 
 - **Never** write the TMDB token into any source file, fixture, doc, or commit.
+- The xcconfig is the target's **base configuration only**
+  (`Apps/MovieBrowser/Config/Secrets.xcconfig`). **Never add it to "Copy Bundle
+  Resources"** — that copies the raw secrets file into the `.app`. Keep exactly
+  one gitignored token file at that path (no duplicates elsewhere).
 - When wiring the app, follow the xcconfig → Info.plist → Bundle accessor →
   composition-root flow above. (See "First-time Xcode setup" in the
   [app README](../Apps/MovieBrowser/README.md) for the one-time target wiring.)
