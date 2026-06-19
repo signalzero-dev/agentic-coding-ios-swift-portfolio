@@ -28,9 +28,11 @@ public final class AuthViewModel {
         }
     }
 
-    /// Stops observing auth state.
-    public func stop() {
+    /// Stops observing auth state, awaiting the cancelled task so that no further
+    /// session updates can land after this returns.
+    public func stop() async {
         observationTask?.cancel()
+        await observationTask?.value
         observationTask = nil
     }
 
