@@ -11,7 +11,8 @@ recruiter-readable architecture.
 AgenticCodingPortfolio.xcworkspace   # the workspace to open
 ├── Packages/
 │   ├── NetworkKit/                  # transport-only HTTP client (SPM)
-│   └── MovieBrowserCore/            # MovieBrowser models/services/view models (SPM)
+│   ├── MovieBrowserCore/            # MovieBrowser models/services/view models (SPM)
+│   └── SocialFeedCore/              # SocialFeed domain: models, repo protocols, VMs (SPM, no Firebase)
 ├── Apps/
 │   └── MovieBrowser/                # app target: composition root + SwiftUI views
 ├── docs/                            # this documentation
@@ -36,11 +37,22 @@ Each phase must be fully complete and green before the next begins.
 2. **MovieBrowser** — TMDB consumer. All calls go through the URLSession-backed
    NetworkKit. Kingfisher for image caching. Paginated popular list, debounced
    search, detail screen.
-3. **SocialFeed** _(not yet built)_ — Firebase Auth + Firestore + Storage.
+3. **SocialFeed** _(in progress)_ — Firebase Auth + Firestore + Storage.
    Email + Sign in with Apple. Real-time feed via `AsyncStream` wrapping a
    Firestore snapshot listener (no Firebase types in view models). Optimistic
    likes. Image-upload compose screen. Profile. `LinkPreviewService` uses
    URLSession (via NetworkKit) for Open Graph parsing.
+   - **`SocialFeedCore`** (built) — pure domain layer: models, repository
+     **protocols**, and `@Observable` view models, with **no Firebase import**
+     (the boundary is compiler-enforced). First slice = Auth + read-only
+     real-time feed, TDD against mocks. See
+     [`Packages/SocialFeedCore/README.md`](../Packages/SocialFeedCore/README.md).
+   - **`SocialFeedFirebase`** (later) — concrete repositories implementing the
+     `SocialFeedCore` protocols against the Firebase SDK; depends on Firebase +
+     `SocialFeedCore`. The app composes the two; `SocialFeedCore` never sees Firebase.
+   - **SocialFeed app** (later) — SwiftUI screens + composition root + Sign in
+     with Apple. Manual prerequisites: Firebase project, `GoogleService-Info.plist`
+     (gitignored), Apple Developer account / Sign in with Apple capability.
 
 ## View-model conventions
 

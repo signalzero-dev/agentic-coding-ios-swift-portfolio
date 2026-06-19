@@ -8,6 +8,9 @@
       location = "group:Packages/MovieBrowserCore">
    </FileRef>
    <FileRef
+      location = "group:Packages/SocialFeedCore">
+   </FileRef>
+   <FileRef
       location = "group:Apps/MovieBrowser/MovieBrowser.xcodeproj">
    </FileRef>
 </Workspace>

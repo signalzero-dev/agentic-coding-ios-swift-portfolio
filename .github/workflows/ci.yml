@@ -29,6 +29,9 @@ jobs:
       - name: Test MovieBrowserCore
         run: swift test --package-path Packages/MovieBrowserCore
 
+      - name: Test SocialFeedCore
+        run: swift test --package-path Packages/SocialFeedCore
+
   build-app:
     name: Build MovieBrowser
     runs-on: macos-latest
