@@ -22,7 +22,12 @@ so the compiler enforces that view models never import a vendor SDK.
   - `AuthViewModel` — `session: User?` driven by `authStateStream`; `signInState`
     tracks the in-flight sign-in.
   - `FeedViewModel` — consumes `feedStream()` in a cancellable `Task`; real-time
-    updates stay in-place (`.loaded → .loaded`).
+    updates stay in-place (`.loaded → .loaded`). `toggleLike(_:)` updates the local
+    list **optimistically**, persists via `LikeRepository`, and rolls back on failure.
+- **`LinkPreviewService`** — builds a `LinkPreview` by loading a page's HTML
+  (injected `HTMLLoading`) and parsing its Open Graph (`og:*`) meta tags. The
+  parser is the tested core; the concrete URLSession/NetworkKit loader is an
+  app-layer detail (deferred).
 
 ## LoadState
 
@@ -34,11 +39,12 @@ refreshes are in-place `.loaded → .loaded` so data never disappears mid-update
 
 ## Status
 
-This is the first SocialFeed deliverable — the **Auth + read-only real-time feed**
-slice, built test-first against mock repositories (no backend required). Deferred
-to later increments: `SocialFeedFirebase` (concrete repos), the SwiftUI app target
-+ Sign in with Apple, and the remaining features (optimistic likes, image-upload
-compose, profile, link previews).
+Built test-first against mock repositories (no backend required). Done so far:
+**Auth**, **read-only real-time feed**, **optimistic likes**, and
+**LinkPreviewService** (Open Graph parsing). Deferred to later increments:
+`SocialFeedFirebase` (concrete repos), the SwiftUI app target + Sign in with Apple,
+the concrete URLSession/NetworkKit `HTMLLoading`, and the remaining features
+(image-upload compose, profile).
 
 ## Tests
 
