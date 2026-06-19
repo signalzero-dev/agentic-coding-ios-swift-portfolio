@@ -79,9 +79,14 @@ Each phase must be fully complete and green before the next begins.
 - iOS 17 minimum deployment target.
 - Restructured into `AgenticCodingPortfolio.xcworkspace`; the original
   `AgenticCodingWithXcode` single app is archived under `Archive/`.
-- Bundle IDs: `com.ginoalo.portfolio.networkkit`,
-  `com.ginoalo.portfolio.moviebrowser`, `com.ginoalo.portfolio.socialfeed`.
-  The Team is set manually in Signing & Capabilities.
+- Bundle ID namespace: **`com.signalzero.portfolio.*`**.
+  - SocialFeed: **`com.signalzero.portfolio.socialfeed`** (matches the Firebase
+    iOS app / `GoogleService-Info.plist`, project `agentic-coding-ios-swift`).
+  - MovieBrowser + NetworkKit currently still use the old `com.ginoalo.portfolio.*`
+    IDs (`com.ginoalo.portfolio.moviebrowser`, `com.ginoalo.portfolio.networkkit`)
+    — **migration to `com.signalzero.portfolio.*` is pending** (low priority;
+    MovieBrowser uses no backend so the rename is cosmetic + a re-sign).
+  - The Team is set manually in Signing & Capabilities.
 - Sign in with Apple capability is added manually when Phase 3 starts.
 - CI: `.github/workflows/ci.yml` runs `swift test` for both packages, then
   builds the MovieBrowser app for the Simulator, on every push/PR to `main`.
