@@ -2,16 +2,22 @@
 //  SocialFeedApp.swift
 //  SocialFeed
 //
-//  Created by Gino Alo on 6/19/26.
-//
 
 import SwiftUI
+import SocialFeedFirebase
 
 @main
 struct SocialFeedApp: App {
+    private let container: RootContainer
+
+    init() {
+        SocialFeedFirebaseApp.configure()
+        container = RootContainer.makeProduction()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(container: container)
         }
     }
 }

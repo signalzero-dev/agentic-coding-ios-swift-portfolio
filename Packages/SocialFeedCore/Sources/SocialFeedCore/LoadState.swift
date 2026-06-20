@@ -25,6 +25,12 @@ public enum LoadState<Value: Sendable, Failure: Error & Sendable>: Sendable {
         if case let .error(failure) = self { return failure }
         return nil
     }
+
+    /// Whether a load is in progress — drives spinners and disabled controls.
+    public var isLoading: Bool {
+        if case .loading = self { return true }
+        return false
+    }
 }
 
 extension LoadState: Equatable where Value: Equatable, Failure: Equatable {}

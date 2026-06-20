@@ -21,4 +21,13 @@ struct LoadStateTests {
         #expect(LoadState<[Int], SampleError>.loading.value == nil)
         #expect(LoadState<[Int], SampleError>.error(.boom).value == nil)
     }
+
+    @Test func failureAndIsLoadingAccessors() {
+        let failed: LoadState<Int, SampleError> = .error(.boom)
+        #expect(failed.failure == .boom)
+        #expect(LoadState<Int, SampleError>.loaded(1).failure == nil)
+        #expect(LoadState<Int, SampleError>.loading.isLoading == true)
+        #expect(LoadState<Int, SampleError>.idle.isLoading == false)
+        #expect(LoadState<Int, SampleError>.loaded(1).isLoading == false)
+    }
 }

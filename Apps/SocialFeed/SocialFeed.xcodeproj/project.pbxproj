@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		34B0990E2FE58D1200360BDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B0990D2FE58D1200360BDC /* GoogleService-Info.plist */; };
+		34B0990F2FE58D1200360BDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B0990D2FE58D1200360BDC /* GoogleService-Info.plist */; };
+		34B099102FE58D1200360BDC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B0990D2FE58D1200360BDC /* GoogleService-Info.plist */; };
+		34B099222FE635B600360BDC /* SocialFeedCore in Frameworks */ = {isa = PBXBuildFile; productRef = 34B099212FE635B600360BDC /* SocialFeedCore */; };
+		34B099242FE635BD00360BDC /* SocialFeedFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = 34B099232FE635BD00360BDC /* SocialFeedFirebase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		34B098EF2FE5875F00360BDC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +35,7 @@
 		34B098E12FE5875C00360BDC /* SocialFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B098EE2FE5875F00360BDC /* SocialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B098F82FE5875F00360BDC /* SocialFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34B0990D2FE58D1200360BDC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B099242FE635BD00360BDC /* SocialFeedFirebase in Frameworks */,
+				34B099222FE635B600360BDC /* SocialFeedCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +90,8 @@
 				34B098F12FE5875F00360BDC /* SocialFeedTests */,
 				34B098FB2FE5875F00360BDC /* SocialFeedUITests */,
 				34B098E22FE5875C00360BDC /* Products */,
+				34B0990D2FE58D1200360BDC /* GoogleService-Info.plist */,
+				34B099202FE635B600360BDC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +103,13 @@
 				34B098F82FE5875F00360BDC /* SocialFeedUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		34B099202FE635B600360BDC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +132,8 @@
 			);
 			name = SocialFeed;
 			packageProductDependencies = (
+				34B099212FE635B600360BDC /* SocialFeedCore */,
+				34B099232FE635BD00360BDC /* SocialFeedFirebase */,
 			);
 			productName = SocialFeed;
 			productReference = 34B098E12FE5875C00360BDC /* SocialFeed.app */;
@@ -195,6 +217,11 @@
 			);
 			mainGroup = 34B098D82FE5875C00360BDC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				34B0990B2FE587DA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedCore" */,
+				34B0990C2FE58CFA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedFirebase" */,
+				34B099112FE58F6600360BDC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 34B098E22FE5875C00360BDC /* Products */;
 			projectDirPath = "";
@@ -212,6 +239,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B099102FE58D1200360BDC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B0990F2FE58D1200360BDC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B0990E2FE58D1200360BDC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +434,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.5;
@@ -414,13 +444,14 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.5;
 			};
 			name = Debug;
@@ -446,7 +477,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.5;
@@ -456,13 +487,14 @@
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				XROS_DEPLOYMENT_TARGET = 26.5;
 			};
 			name = Release;
@@ -605,6 +637,41 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		34B0990B2FE587DA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Packages/SocialFeedCore;
+		};
+		34B0990C2FE58CFA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedFirebase" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Packages/SocialFeedFirebase;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		34B099112FE58F6600360BDC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		34B099212FE635B600360BDC /* SocialFeedCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 34B0990B2FE587DA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedCore" */;
+			productName = SocialFeedCore;
+		};
+		34B099232FE635BD00360BDC /* SocialFeedFirebase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 34B0990C2FE58CFA00360BDC /* XCLocalSwiftPackageReference "../../Packages/SocialFeedFirebase" */;
+			productName = SocialFeedFirebase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 34B098D92FE5875C00360BDC /* Project object */;
 }

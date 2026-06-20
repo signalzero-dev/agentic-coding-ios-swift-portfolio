@@ -13,4 +13,7 @@
    <FileRef
       location = "group:Apps/MovieBrowser/MovieBrowser.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Apps/SocialFeed/SocialFeed.xcodeproj">
+   </FileRef>
 </Workspace>
