@@ -37,22 +37,28 @@ Each phase must be fully complete and green before the next begins.
 2. **MovieBrowser** — TMDB consumer. All calls go through the URLSession-backed
    NetworkKit. Kingfisher for image caching. Paginated popular list, debounced
    search, detail screen.
-3. **SocialFeed** _(in progress)_ — Firebase Auth + Firestore + Storage.
-   Email + Sign in with Apple. Real-time feed via `AsyncStream` wrapping a
-   Firestore snapshot listener (no Firebase types in view models). Optimistic
-   likes. Image-upload compose screen. Profile. `LinkPreviewService` uses
-   URLSession (via NetworkKit) for Open Graph parsing.
-   - **`SocialFeedCore`** (built) — pure domain layer: models, repository
-     **protocols**, and `@Observable` view models, with **no Firebase import**
-     (the boundary is compiler-enforced). First slice = Auth + read-only
-     real-time feed, TDD against mocks. See
+3. **SocialFeed** _(built; runs live on Firebase)_ — Firebase Auth + Firestore +
+   Storage. Email sign-in/sign-up, real-time feed via `AsyncThrowingStream`
+   wrapping a Firestore snapshot listener (no Firebase types in view models),
+   optimistic likes, compose (text + image upload), and profile. `LinkPreview`
+   Open Graph parsing exists in core (UI wiring is a remaining task). Three layers:
+   - **`SocialFeedCore`** — pure domain layer: models, repository **protocols**,
+     and `@Observable` view models, with **no Firebase import** (the boundary is
+     compiler-enforced). All TDD against mocks. See
      [`Packages/SocialFeedCore/README.md`](../Packages/SocialFeedCore/README.md).
-   - **`SocialFeedFirebase`** (later) — concrete repositories implementing the
-     `SocialFeedCore` protocols against the Firebase SDK; depends on Firebase +
-     `SocialFeedCore`. The app composes the two; `SocialFeedCore` never sees Firebase.
-   - **SocialFeed app** (later) — SwiftUI screens + composition root + Sign in
-     with Apple. Manual prerequisites: Firebase project, `GoogleService-Info.plist`
-     (gitignored), Apple Developer account / Sign in with Apple capability.
+   - **`SocialFeedFirebase`** — concrete repositories (Auth, Firestore feed/post/
+     profile, Storage) implementing the `SocialFeedCore` protocols against the
+     Firebase SDK; `@preconcurrency` import + `nonisolated(unsafe)` for the
+     non-Sendable listener handles. The app composes the two; `SocialFeedCore`
+     never sees Firebase.
+   - **SocialFeed app** — SwiftUI screens (Auth, Feed, Compose, Profile via a
+     TabView) + composition root (`RootContainer`). See
+     [`Apps/SocialFeed/README.md`](../Apps/SocialFeed/README.md).
+   - **Remaining/deferred:** Sign in with Apple (needs an Apple Team),
+     `LinkPreviewService` UI + concrete `HTMLLoading`, hermetic UI tests + CI.
+   - **Manual prerequisites:** Firebase project, `GoogleService-Info.plist`
+     (gitignored), Firestore composite index for the profile query, Storage
+     enabled (Blaze plan) for image upload.
 
 ## View-model conventions
 
