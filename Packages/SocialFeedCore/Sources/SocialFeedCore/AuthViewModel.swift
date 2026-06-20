@@ -2,13 +2,14 @@ import Observation
 
 /// Owns authentication state for the app. `session` is the source of truth for
 /// "is the user signed in" and is driven by `authStateStream()` (so it survives
-/// relaunches once the concrete repository restores persisted auth). `signInState`
-/// tracks the in-flight sign-in action for the sign-in screen.
+/// relaunches once the concrete repository restores persisted auth). `submitState`
+/// tracks the in-flight sign-in / sign-up action for the auth screen.
 @MainActor
 @Observable
 public final class AuthViewModel {
     public private(set) var session: User?
-    public private(set) var signInState: LoadState<Void, AuthError> = .idle
+    /// The in-flight sign-in / sign-up action.
+    public private(set) var submitState: LoadState<Void, AuthError> = .idle
 
     private let repository: any AuthRepository
     private var observationTask: Task<Void, Never>?
@@ -37,14 +38,22 @@ public final class AuthViewModel {
     }
 
     public func signIn(email: String, password: String) async {
-        signInState = .loading
+        await submit { try await self.repository.signIn(email: email, password: password) }
+    }
+
+    public func signUp(email: String, password: String) async {
+        await submit { try await self.repository.signUp(email: email, password: password) }
+    }
+
+    private func submit(_ action: () async throws -> Void) async {
+        submitState = .loading
         do {
-            try await repository.signIn(email: email, password: password)
-            signInState = .loaded(())
+            try await action()
+            submitState = .loaded(())
         } catch let error as AuthError {
-            signInState = .error(error)
+            submitState = .error(error)
         } catch {
-            signInState = .error(.unknown)
+            submitState = .error(.unknown)
         }
     }
 

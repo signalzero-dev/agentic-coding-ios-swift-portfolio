@@ -30,7 +30,7 @@ struct AuthViewModelTests {
 
         await viewModel.signIn(email: "a@b.com", password: "pw")
 
-        #expect(viewModel.signInState.failure == nil)
+        #expect(viewModel.submitState.failure == nil)
         await waitFor { viewModel.session == user }
         #expect(viewModel.session == user)
     }
@@ -43,7 +43,33 @@ struct AuthViewModelTests {
 
         await viewModel.signIn(email: "a@b.com", password: "bad")
 
-        #expect(viewModel.signInState.failure == .invalidCredentials)
+        #expect(viewModel.submitState.failure == .invalidCredentials)
+        #expect(viewModel.session == nil)
+    }
+
+    @Test func signUpSuccessClearsErrorAndSetsSessionViaStream() async {
+        let repo = MockAuthRepository()
+        let user = User(id: "u2", displayName: "Grace")
+        repo.signUpResult = .success(user)
+        let viewModel = AuthViewModel(repository: repo)
+        viewModel.start()
+
+        await viewModel.signUp(email: "grace@test.com", password: "pw123456")
+
+        #expect(viewModel.submitState.failure == nil)
+        await waitFor { viewModel.session == user }
+        #expect(viewModel.session == user)
+    }
+
+    @Test func signUpFailureSetsError() async {
+        let repo = MockAuthRepository()
+        repo.signUpResult = .failure(.emailAlreadyInUse)
+        let viewModel = AuthViewModel(repository: repo)
+        viewModel.start()
+
+        await viewModel.signUp(email: "taken@test.com", password: "pw123456")
+
+        #expect(viewModel.submitState.failure == .emailAlreadyInUse)
         #expect(viewModel.session == nil)
     }
 

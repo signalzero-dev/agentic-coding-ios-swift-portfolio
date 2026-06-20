@@ -8,6 +8,8 @@ final class MockAuthRepository: AuthRepository, @unchecked Sendable {
 
     /// Outcome the next `signIn` call should produce.
     var signInResult: Result<User, AuthError> = .failure(.unknown)
+    /// Outcome the next `signUp` call should produce.
+    var signUpResult: Result<User, AuthError> = .failure(.unknown)
     private(set) var signOutCalled = false
 
     init() {
@@ -24,6 +26,17 @@ final class MockAuthRepository: AuthRepository, @unchecked Sendable {
         switch signInResult {
         case .success(let user):
             // Mimic Firebase: a successful sign-in fires the auth-state listener.
+            authContinuation.yield(user)
+            return user
+        case .failure(let error):
+            throw error
+        }
+    }
+
+    @discardableResult
+    func signUp(email: String, password: String) async throws -> User {
+        switch signUpResult {
+        case .success(let user):
             authContinuation.yield(user)
             return user
         case .failure(let error):

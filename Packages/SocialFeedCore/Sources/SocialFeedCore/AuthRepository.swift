@@ -12,5 +12,8 @@ public protocol AuthRepository: Sendable {
     @discardableResult
     func signIn(email: String, password: String) async throws -> User
 
+    @discardableResult
+    func signUp(email: String, password: String) async throws -> User
+
     func signOut() async throws
 }

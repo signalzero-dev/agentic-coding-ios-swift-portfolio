@@ -30,6 +30,15 @@ public final class FirebaseAuthRepository: AuthRepository, @unchecked Sendable {
         }
     }
 
+    public func signUp(email: String, password: String) async throws -> SocialFeedCore.User {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            return Self.domainUser(result.user)
+        } catch {
+            throw Self.authError(from: error)
+        }
+    }
+
     public func signOut() async throws {
         do {
             try Auth.auth().signOut()
@@ -51,6 +60,10 @@ public final class FirebaseAuthRepository: AuthRepository, @unchecked Sendable {
         switch code {
         case .wrongPassword, .invalidCredential, .userNotFound, .invalidEmail, .userDisabled:
             return .invalidCredentials
+        case .emailAlreadyInUse:
+            return .emailAlreadyInUse
+        case .weakPassword:
+            return .weakPassword
         case .networkError:
             return .network
         default:
