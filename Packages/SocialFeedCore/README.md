@@ -39,12 +39,14 @@ refreshes are in-place `.loaded → .loaded` so data never disappears mid-update
 
 ## Status
 
-Built test-first against mock repositories (no backend required). Done so far:
-**Auth**, **read-only real-time feed**, **optimistic likes**, and
-**LinkPreviewService** (Open Graph parsing). Deferred to later increments:
-`SocialFeedFirebase` (concrete repos), the SwiftUI app target + Sign in with Apple,
-the concrete URLSession/NetworkKit `HTMLLoading`, and the remaining features
-(image-upload compose, profile).
+Built test-first against mock repositories (no backend required). Done:
+**Auth** (+ sign-out), **real-time feed**, **optimistic likes**,
+**LinkPreviewService** (Open Graph), **Compose** (`ComposeViewModel` +
+`PostRepository`/`StorageRepository` — validate → upload image → create), and
+**Profile** (`ProfileViewModel` — a user's post stream). The concrete Firebase
+implementations live in `SocialFeedFirebase`; the SwiftUI app composes them.
+Deferred: Sign in with Apple (needs a Team), the concrete URLSession/NetworkKit
+`HTMLLoading`, image compression (app-layer), and a sign-up flow.
 
 ## Tests
 
