@@ -20,7 +20,8 @@ let package = Package(
             dependencies: [
                 .product(name: "SocialFeedCore", package: "SocialFeedCore"),
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk")
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseStorage", package: "firebase-ios-sdk")
             ],
             swiftSettings: [
                 .swiftLanguageMode(.v6)

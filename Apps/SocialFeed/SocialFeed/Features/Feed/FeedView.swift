@@ -4,11 +4,12 @@ import SocialFeedCore
 /// Real-time feed. Owns a `FeedViewModel` and renders its `LoadState`.
 struct FeedView: View {
     @State private var viewModel: FeedViewModel
-    private let onSignOut: @MainActor () async -> Void
+    @State private var showingCompose = false
+    private let container: RootContainer
 
-    init(container: RootContainer, onSignOut: @escaping @MainActor () async -> Void) {
+    init(container: RootContainer) {
+        self.container = container
         _viewModel = State(initialValue: container.makeFeedViewModel())
-        self.onSignOut = onSignOut
     }
 
     var body: some View {
@@ -17,8 +18,15 @@ struct FeedView: View {
                 .navigationTitle("Feed")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Sign Out") { Task { await onSignOut() } }
+                        Button {
+                            showingCompose = true
+                        } label: {
+                            Image(systemName: "square.and.pencil")
+                        }
                     }
+                }
+                .sheet(isPresented: $showingCompose) {
+                    ComposeView(container: container) { showingCompose = false }
                 }
                 .task { viewModel.start() }
         }

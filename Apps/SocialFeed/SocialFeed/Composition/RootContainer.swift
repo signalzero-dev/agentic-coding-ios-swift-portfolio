@@ -8,12 +8,18 @@ struct RootContainer: Sendable {
     let authRepository: any AuthRepository
     let feedRepository: any FeedRepository
     let likeRepository: any LikeRepository
+    let postRepository: any PostRepository
+    let storageRepository: any StorageRepository
+    let profileRepository: any ProfileRepository
 
     static func makeProduction() -> RootContainer {
         RootContainer(
             authRepository: FirebaseAuthRepository(),
             feedRepository: FirestoreFeedRepository(),
-            likeRepository: FirestoreLikeRepository()
+            likeRepository: FirestoreLikeRepository(),
+            postRepository: FirestorePostRepository(),
+            storageRepository: FirebaseStorageRepository(),
+            profileRepository: FirestoreProfileRepository()
         )
     }
 
@@ -25,5 +31,15 @@ struct RootContainer: Sendable {
     @MainActor
     func makeFeedViewModel() -> FeedViewModel {
         FeedViewModel(feedRepository: feedRepository, likeRepository: likeRepository)
+    }
+
+    @MainActor
+    func makeComposeViewModel() -> ComposeViewModel {
+        ComposeViewModel(postRepository: postRepository, storageRepository: storageRepository)
+    }
+
+    @MainActor
+    func makeProfileViewModel(user: User) -> ProfileViewModel {
+        ProfileViewModel(user: user, repository: profileRepository)
     }
 }

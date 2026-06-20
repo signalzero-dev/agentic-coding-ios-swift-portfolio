@@ -1,8 +1,8 @@
 import SwiftUI
 import SocialFeedCore
 
-/// Switches between the auth screen and the feed based on the session, which is
-/// driven by the auth-state stream.
+/// Switches between the auth screen and the main tabs based on the session, which
+/// is driven by the auth-state stream.
 struct RootView: View {
     @State private var authViewModel: AuthViewModel
     private let container: RootContainer
@@ -14,12 +14,12 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if authViewModel.session == nil {
-                AuthView(viewModel: authViewModel)
-            } else {
-                FeedView(container: container) {
+            if let user = authViewModel.session {
+                MainTabView(container: container, user: user) {
                     await authViewModel.signOut()
                 }
+            } else {
+                AuthView(viewModel: authViewModel)
             }
         }
         .task { authViewModel.start() }

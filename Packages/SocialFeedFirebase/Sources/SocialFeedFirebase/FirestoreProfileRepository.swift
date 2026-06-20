@@ -3,25 +3,24 @@
 import Foundation
 import SocialFeedCore
 
-/// Firebase-backed `FeedRepository`. Wraps a Firestore snapshot listener on the
-/// `posts` collection in an `AsyncThrowingStream`, mapping documents to `Post`.
+/// Firebase-backed `ProfileRepository`. Streams one author's posts via a filtered
+/// Firestore snapshot listener.
 ///
-/// Assumed Firestore schema for a `posts/{id}` document:
-/// `authorID: String`, `authorName: String`, `text: String`,
-/// `createdAt: Timestamp`, `imageURL: String?`, `likeCount: Int`,
-/// `likedBy: [String]` (user IDs).
-public final class FirestoreFeedRepository: FeedRepository, @unchecked Sendable {
+/// Note: the `authorID ==` + `createdAt` ordering needs a composite index, which
+/// Firestore will prompt you to create (with a one-click link) on first run.
+public final class FirestoreProfileRepository: ProfileRepository, @unchecked Sendable {
     private let collectionPath: String
 
     public init(collectionPath: String = "posts") {
         self.collectionPath = collectionPath
     }
 
-    public func feedStream() -> AsyncThrowingStream<[Post], Error> {
+    public func userPostsStream(userID: String) -> AsyncThrowingStream<[Post], Error> {
         AsyncThrowingStream { continuation in
             let currentUserID = Auth.auth().currentUser?.uid
             nonisolated(unsafe) let registration = Firestore.firestore()
                 .collection(collectionPath)
+                .whereField("authorID", isEqualTo: userID)
                 .order(by: "createdAt", descending: true)
                 .addSnapshotListener { snapshot, error in
                     if let error {
